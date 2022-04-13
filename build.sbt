@@ -1,77 +1,42 @@
-val scala3Version = "3.1.1"
+ThisBuild / scalaVersion := "2.13.8"
+ThisBuild / version := "0.1.0"
+
+/** scala options.
+  *
+  * reference:
+  *   - scala2 reference: https://docs.scala-lang.org/overviews/compiler-options/index.html
+  *   - scala3 reference: https://docs.scala-lang.org/scala3/guides/migration/options-intro.html
+  */
+ThisBuild / scalacOptions ++= Seq(
+  "-Xfatal-warnings", // warnがあるとコンパイルが失敗する
+  "-deprecation", // @deprecated(非推奨)があるとwarnになる
+  "-unchecked", // @unchecked(パターンマッチの不備を許容)があるとwarnになる
+  "-language:implicitConversions", // implicit conversionの定義を許容する
+  "-language:higherKinds", // 高カインド型の定義を許容する
+  "-Xsource:3", // scala3の一部のsyntaxが利用可能
+  "-Xlint", // 推奨される警告が表示されるようになる
+  "-Xlint:-byname-implicit", // by-nameによるimplicitを許容する
+  "-Xlint:-package-object-classes", // package objectにクラスの定義を許容する
+  "-Ymacro-annotations" // newtypeを利用するためにmacro annotationを許容する
+)
 
 lazy val root = project
   .in(file("."))
-  .settings(
-    name := "pet store es",
-    version := "0.1.0",
-    scalaVersion := scala3Version
-  )
-  .aggregate(v1)
+  .aggregate(lib, shared, core, auth)
 
-// reference: https://docs.scala-lang.org/overviews/compiler-options/index.html
-val commonScalacOptions = Seq(
-  "-Xfatal-warnings",
-  "-deprecation",
-  "-unchecked",
-  "-language:implicitConversions",
-  "-language:higherKinds",
-  "-language:existentials",
-  "-language:postfixOps"
-)
+lazy val lib = LibProject.lib
 
-lazy val v1 = project
-  .in(file("v1"))
-  .settings(
-    scalacOptions ++= commonScalacOptions
-  )
+lazy val shared = SharedProject.shared
+lazy val sharedDomain = SharedProject.sharedDomain
+lazy val sharedApplication = SharedProject.sharedApplication
+lazy val sharedInfrastructure = SharedProject.sharedInfrastructure
 
-lazy val catsVersion = "2.7.0"
-lazy val catsEffectVersion = "3.3.8"
-lazy val log4catsVersion = "2.2.0"
-lazy val slf4jVersion = "1.7.36"
-lazy val cats = Seq(
-  "org.typelevel" %% "cats-core" % catsVersion,
-  "org.typelevel" %% "cats-effect" % catsEffectVersion
-) ++ log4cats
+lazy val auth = AuthProject.auth
+lazy val authDomain = AuthProject.authDomain
+lazy val authApplication = AuthProject.authApplication
+lazy val authInfrastructure = AuthProject.authInfrastructure
 
-lazy val log4cats = Seq(
-  "org.typelevel" %% "log4cats-core" % log4catsVersion,
-  "org.typelevel" %% "log4cats-slf4j" % log4catsVersion,
-  "org.slf4j" % "slf4j-api" % slf4jVersion,
-  "org.slf4j" % "slf4j-simple" % slf4jVersion
-)
-
-lazy val scalatest = Seq(
-  "org.scalatest" %% "scalatest" % "3.2.11" % Test
-)
-
-lazy val mysql = Seq(
-  "mysql" % "mysql-connector-java" % "8.0.28"
-)
-
-lazy val doobieVersion = "1.0.0-RC2"
-lazy val doobie = Seq(
-  "org.tpolecat" %% "doobie-core" % doobieVersion,
-  "org.tpolecat" %% "doobie-h2" % doobieVersion,
-  "org.tpolecat" %% "doobie-hikari" % doobieVersion,
-  "org.tpolecat" %% "doobie-scalatest" % doobieVersion % Test
-)
-
-lazy val http4sVersion = "0.23.11"
-lazy val http4s = Seq(
-  "org.http4s" %% "http4s-dsl" % http4sVersion,
-  "org.http4s" %% "http4s-blaze-client" % http4sVersion,
-  "org.http4s" %% "http4s-blaze-server" % http4sVersion,
-  "org.http4s" %% "http4s-circe" % http4sVersion
-)
-
-lazy val circeVersion = "0.14.1"
-lazy val circeConfigVersion = "0.8.0"
-lazy val circe = Seq(
-  "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-literal" % circeVersion,
-  "io.circe" %% "circe-generic-extras" % circeVersion,
-  "io.circe" %% "circe-parser" % circeVersion,
-  "io.circe" %% "circe-config" % circeConfigVersion
-)
+lazy val core = CoreProject.core
+lazy val coreDomain = CoreProject.coreDomain
+lazy val coreApplication = CoreProject.coreApplication
+lazy val coreInfrastructure = CoreProject.coreInfrastructure
