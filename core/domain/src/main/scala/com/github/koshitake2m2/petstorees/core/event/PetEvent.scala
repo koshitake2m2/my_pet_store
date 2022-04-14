@@ -12,7 +12,7 @@ object PetEvent {
       pet: Pet
   ) extends PetEvent
 
-  // TODO: もしかしたら、UpdatedPetName, AddedCategory, RemovedCategoryに分けたほうがいいかもしれない。集約をそのまま渡すと集約そのままを保存したくなってしまい、リプレイヤー&スナップショットの機能が必要なくなってしまうから。
+  // TODO: もしかしたら, UpdatedPetName, AddedCategory, RemovedCategoryに分けたほうがいいかもしれない.集約をそのまま渡すと集約そのままを保存したくなってしまい, リプレイヤー&スナップショットの機能が必要なくなってしまうから.
   case class UpdatedPet(
       override val id: DomainEventId,
       pet: Pet

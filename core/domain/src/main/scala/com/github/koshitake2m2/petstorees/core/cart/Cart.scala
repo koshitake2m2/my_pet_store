@@ -6,7 +6,7 @@ import com.github.koshitake2m2.petstorees.shared.pattern.Aggregate
 
 /** カート(買い物カゴ)
   *
-  * NOTE: ドメインで気にすることではないが、DB的にはカートと注文は同じドキュメント(テーブル)であり、ステータスによってカートか注文か区別される。
+  * NOTE: ドメインで気にすることではないが, DB的にはカートと注文は同じドキュメント(テーブル)であり, ステータスによってカートか注文か区別される.
   */
 case class Cart(
     id: CartId,
