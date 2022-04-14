@@ -1,19 +1,20 @@
 package com.github.koshitake2m2.petstorees.core.event.command
 
-import cats.effect.IO
+import cats.effect.Temporal
+import cats.implicits.*
 import com.github.koshitake2m2.petstorees.core.event.query.QueryModelPublisher
 
 import scala.concurrent.duration.{DurationInt, FiniteDuration}
 
-class CommandModelMessageQueueProcessor(
-    queue: CommandModelMessageQueue[IO],
-    subscriber: CommandModelSubscriber[IO],
-    queryModelPublisher: QueryModelPublisher[IO]
+class CommandModelMessageQueueProcessor[F[_]: Temporal](
+    queue: CommandModelMessageQueue[F],
+    subscriber: CommandModelSubscriber[F],
+    queryModelPublisher: QueryModelPublisher[F]
 ) {
   import CommandModelMessageQueueProcessor.*
 
   /** dequeueしてサブスクライバに渡してクエリモデルにpublishする */
-  private def dequeueAndRun: IO[Unit] =
+  private def dequeueAndRun: F[Unit] =
     queue.dequeue.map {
       case Some(e) =>
         subscriber.subscribe(e)
@@ -22,7 +23,7 @@ class CommandModelMessageQueueProcessor(
         println(s"command queue is empty")
     }
 
-  def apply: IO[Unit] = IO.sleep(interval) >> dequeueAndRun >> apply
+  def apply: F[Unit] = Temporal[F].sleep(interval) >> dequeueAndRun >> apply
 }
 
 object CommandModelMessageQueueProcessor {

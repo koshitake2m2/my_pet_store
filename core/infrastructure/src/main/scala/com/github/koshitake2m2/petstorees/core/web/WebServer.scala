@@ -48,7 +48,7 @@ object WebServer extends IOApp {
   val queryModelPublisher = new QueryModelPublisher[IO](queryQueue)
   val commandSubscriber = new CommandModelSubscriber[IO]
   val commandQueue: CommandModelMessageQueue[IO] = CommandModelMessageQueue.empty[IO]
-  val commandProcessor = new CommandModelMessageQueueProcessor(
+  val commandProcessor = new CommandModelMessageQueueProcessor[IO](
     commandQueue,
     commandSubscriber,
     queryModelPublisher
