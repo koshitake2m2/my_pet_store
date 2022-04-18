@@ -1,0 +1,23 @@
+# 参考文献
+- ヘキサゴナルアーキテクチャ
+  - [Hexagonal architecture│nrslib](https://nrslib.com/hexagonal-architecture/)
+  - [nrslib/HexagonalArchitectureSample](https://github.com/nrslib/HexagonalArchitectureSample)
+- イベントソーシング
+  - [CQRSはなぜEvent Sourcingになってしまうのか - かとじゅんの技術日誌](https://blog.j5ik2o.me/entry/2020/09/18/172612)
+  - [具体的な実装コードからEvent Sourcingを理解する - かとじゅんの技術日誌](https://blog.j5ik2o.me/entry/2020/09/16/162037)
+  - [CQRS パターン - Azure Architecture Center | Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/architecture/patterns/cqrs)
+- 2フェーズコミット
+  - [分散トランザクションに挑戦しよう！](https://www.ogis-ri.co.jp/otc/hiroba/technical/DTP/step2/index.html)
+- UML図(mermaid)
+  - [Sequence diagram](https://mermaid-js.github.io/mermaid/#/sequenceDiagram)
+  - [Entity Relationship Diagram](https://mermaid-js.github.io/mermaid/#/entityRelationshipDiagram)
+- refined, newtype
+  - [さらなる型安全性を求めて ~ Refinement TypeをScalaで実現する ~ - Visional Engineering Blog](https://engineering.visional.inc/blog/168/scala-refined-newtype/)
+- scala compiler option
+  - -Xsource:3
+    - [Scala 2.13で-Xsource:3を指定すると変更される挙動一覧 - xuwei-k's blog](https://xuwei-k.hatenablog.com/entry/2020/07/10/173028)
+  - -Xlint:byname-implicit
+    - [Scala 2.13 から入る byname implicit arguments - xuwei-k's blog](https://xuwei-k.hatenablog.com/entry/2018/07/11/083620)
+    - io.circe.Decoderで怒られるのでこのオプションは外す
+- build.sbt関連
+  - [sbt Reference Manual — ビルドの整理](https://www.scala-sbt.org/1.x/docs/ja/Organizing-Build.html)
